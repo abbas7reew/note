@@ -33,12 +33,15 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          ElevatedButton.icon(onPressed: (){
-            return BlocProvider.of<ModeCubit>(context).changeMode();
-          },
-            icon: Icon(Icons.ac_unit_sharp),
-            label: Text("Mode") ,
-          )
+          ElevatedButton.icon(
+            onPressed: (){
+              BlocProvider.of<ModeCubit>(context).changeMode();
+              BlocProvider.of<ModeCubit>(context).changeIcon();
+            },
+            icon: Icon(BlocProvider.of<ModeCubit>(context).iconBool?
+            BlocProvider.of<ModeCubit>(context).lightIcon:BlocProvider.of<ModeCubit>(context).darkIcon),
+            label: Text("Mood") ,
+          ),
         ],
       ),
       //backgroundColor: Colors.brown,,

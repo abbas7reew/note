@@ -13,7 +13,6 @@ import 'package:notes/views/notes_view.dart';
 import 'package:notes/views/resgister_page.dart';
 
 
-
 import 'cubits/notes_cubit/notes_cubit.dart';
 
 void main() async {
@@ -36,28 +35,42 @@ class NotesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
-        BlocProvider(
+      BlocProvider(
         create: (context) => NotesCubit(),),
-    BlocProvider(
-    create: (context) => ModeCubit(),),
+      BlocProvider(
+        create: (context) => ModeCubit(),),
     ],
 
 
       child: Builder(
-        builder: (context) {
-          return MaterialApp(
-            theme: BlocProvider.of<ModeCubit>(context).isLight?ModeClass.lightMode : ModeClass.darkMode,
-              routes: {
-                LoginPage.id: (context) => LoginPage(),
-                RegisterPage.id: (context) => RegisterPage(),
-                NotesView.id : (context) => NotesView()
-              },
-            initialRoute: LoginPage.id,
-            debugShowCheckedModeBanner: false,
-           // theme: ThemeData(brightness: Brightness.dark, fontFamily: 'Poppins'),
+          builder: (context) {
+            return BlocProvider(
+              create: (context) => ModeCubit(),
+              child: Builder(
+                  builder: (context) {
+                    return BlocBuilder<ModeCubit, ModeState>(
+                      builder: (context, state) {
+                        return MaterialApp(
+                          theme: BlocProvider
+                              .of<ModeCubit>(context)
+                              .isLight ? ModeClass.lightMode : ModeClass
+                              .darkMode,
+                          routes: {
+                            LoginPage.id: (context) => LoginPage(),
+                            RegisterPage.id: (context) => RegisterPage(),
+                            NotesView.id: (context) => NotesView()
+                          },
+                          initialRoute: LoginPage.id,
+                          debugShowCheckedModeBanner: false,
+                          // theme: ThemeData(brightness: Brightness.dark, fontFamily: 'Poppins'),
 
-          );
-        }
+                        );
+                      },
+                    );
+                  }
+              ),
+            );
+          }
       ),
     );
   }
