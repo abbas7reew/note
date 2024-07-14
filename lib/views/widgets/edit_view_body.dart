@@ -20,52 +20,55 @@ class EditNoteViewBody extends StatefulWidget {
 
 class _EditNoteViewBodyState extends State<EditNoteViewBody> {
   String? title, content;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 50,
-          ),
-          CustomAppBar(
-            onPressed: () {
-              widget.note.title = title ?? widget.note.title;
-              widget.note.subTitle = content ?? widget.note.subTitle;
-              widget.note.save();
-              BlocProvider.of<NotesCubit>(context).fetchAllNotes();
-              Navigator.pop(context);
-            },
-            title: 'Edit Note',
-            icon: Icons.check,
-          ),
-          const SizedBox(
-            height: 50,
-          ),
-          CustomFormTextField(
-            onChanged: (value) {
-              title = value;
-            },
-            hintText: widget.note.title,
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          CustomFormTextField(
-            onChanged: (value) {
-              content = value;
-            },
-            hintText: widget.note.subTitle,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 50,
+            ),
+            CustomAppBar(
+              onPressed: () {
+                widget.note.title = title ?? widget.note.title;
+                widget.note.subTitle = content ?? widget.note.subTitle;
+                widget.note.save();
+                BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+                Navigator.pop(context);
+              },
+              title: 'Edit Note',
+              icon: Icons.check,
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            CustomFormTextField(
+              onChanged: (value) {
+                title = value;
+              },
+              hintText: widget.note.title,
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            CustomFormTextField(
+              onChanged: (value) {
+                content = value;
+              },
+              hintText: widget.note.subTitle,
 
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          EditNoteColorsList(
-            note: widget.note,
-          ),
-        ],
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            EditNoteColorsList(
+              note: widget.note,
+            ),
+          ],
+        ),
       ),
     );
   }

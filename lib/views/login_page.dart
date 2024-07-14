@@ -70,6 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                 height: 20,
               ),
               CustomFormTextField(
+                icon: Icon(Icons.email),
                 controller:emailCon ,
                 onChanged: (data) {
                   email = data;
@@ -84,6 +85,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 controller:passwordCon ,
                 obscureText: true,
+                  icon:Icon(Icons.password),
                 onChanged: (data) {
                   password = data;
                 },
@@ -170,3 +172,4 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 }
+// new new
